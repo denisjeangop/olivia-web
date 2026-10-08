@@ -1,0 +1,8 @@
+{
+  "name": "olivia-vercel",
+  "private": true,
+  "scripts": {
+    "dev": "php -S 0.0.0.0:3000 -t .",
+    "check:php": "php -l api/out.php"
+  }
+}

@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Olivia Moonly — A little heaven</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --accent: #f6ead8;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#ebe3d6;
+    background:radial-gradient(ellipse at center,#f3ede4 0%,#e4dacb 100%);
+    font-family:Inter,-apple-system,system-ui,"Segoe UI",sans-serif;
+    color:#fff;
+    display:flex;justify-content:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .card{
+    position:relative;width:100%;max-width:480px;min-height:100svh;overflow:hidden;
+    background:#2a2420 url("olivia-poster.jpg") center/cover no-repeat;
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    padding:56px 24px 28px;
+    box-shadow:0 0 80px rgba(60,40,20,.18);
+  }
+  .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
+  .card::before{z-index:1;
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,0) 48%,rgba(0,0,0,.25) 70%,rgba(0,0,0,.55) 100%);
+  }
+  .card>*:not(.bg){position:relative;z-index:2}
+
+  .star{font-family:Cormorant,Georgia,serif;font-size:22px;opacity:.9;animation:twinkle 3.5s ease-in-out infinite}
+  @keyframes twinkle{50%{opacity:.4;transform:scale(.85)}}
+
+  h1{
+    font-family:Cormorant,Georgia,serif;font-weight:400;
+    font-size:clamp(40px,11vw,54px);letter-spacing:.22em;margin:10px 0 0 .22em;line-height:1;
+    text-shadow:0 2px 20px rgba(0,0,0,.25);
+  }
+  .surname{font-size:10px;letter-spacing:.5em;margin:10px 0 0 .5em;font-weight:500;opacity:.9}
+  .tag{font-size:9px;letter-spacing:.32em;margin-top:28px;opacity:.85;text-transform:uppercase}
+
+  .spacer{flex:1;min-height:180px}
+
+  .lead{font-family:Cormorant,Georgia,serif;font-style:italic;font-size:22px;margin-bottom:14px;text-shadow:0 1px 12px rgba(0,0,0,.4)}
+  .btn{
+    display:block;width:100%;max-width:330px;padding:18px 24px;border-radius:999px;
+    background:linear-gradient(135deg,#fffaf2 0%,var(--accent) 55%,#e9d6b8 100%);
+    color:#2b211a;text-decoration:none;font-weight:600;font-size:15px;letter-spacing:.02em;
+    box-shadow:0 8px 30px rgba(0,0,0,.25),0 0 0 1px rgba(255,255,255,.6) inset;
+    position:relative;overflow:hidden;transition:transform .2s ease;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn:active{transform:scale(.98)}
+  .btn::after{
+    content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);
+    transform:skewX(-20deg);animation:shine 3.2s ease-in-out infinite;
+  }
+  @keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+
+  .adult{font-size:9px;letter-spacing:.28em;margin-top:18px;opacity:.85;text-transform:uppercase}
+  .adult span{margin:0 10px}
+
+  .closer{font-family:Cormorant,Georgia,serif;margin-top:56px;line-height:1.15;text-shadow:0 1px 14px rgba(0,0,0,.45)}
+  .closer small{display:block;font-size:19px}
+  .closer b{display:block;font-weight:400;font-size:28px}
+  .closer+.star{margin-top:14px;font-size:18px}
+
+  footer{font-size:8px;letter-spacing:.35em;margin-top:34px;opacity:.85;text-transform:uppercase}
+
+  .fade{opacity:0;transform:translateY(10px);animation:in .9s ease forwards}
+  .d1{animation-delay:.1s}.d2{animation-delay:.35s}.d3{animation-delay:.6s}.d4{animation-delay:.85s}
+  @keyframes in{to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important}.fade{opacity:1;transform:none}}
+
+  .ctrls{position:absolute!important;top:18px;right:16px;display:flex;gap:8px;z-index:3!important}
+  .ic{width:30px;height:30px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;
+    background:rgba(255,255,255,.14);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;opacity:.8;transition:opacity .2s}
+  .ic:hover{opacity:1}
+  .ic svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .ic .on{display:none}.ic.sound .on{display:block}.ic.sound .off{display:none}
+
+  .veil{position:absolute!important;inset:0;z-index:5!important;background:rgba(10,6,4,.35);
+    backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);
+    opacity:0;pointer-events:none;transition:opacity .45s ease}
+  .veil.open{opacity:1;pointer-events:auto}
+  .sheet{position:absolute;left:0;right:0;bottom:0;padding:34px 28px 30px;text-align:center;
+    border-radius:28px 28px 0 0;background:linear-gradient(180deg,rgba(255,250,242,.16),rgba(255,250,242,.08));
+    border-top:1px solid rgba(255,255,255,.25);transform:translateY(100%);transition:transform .55s cubic-bezier(.2,.8,.2,1)}
+  .veil.open .sheet{transform:none}
+  .sheet .star{font-size:18px}
+  .sheet h2{font-family:Cormorant,Georgia,serif;font-weight:400;font-size:30px;line-height:1.1;margin:8px 0 6px}
+  .sheet h2 i{display:block;font-size:22px}
+  .sheet p{font-size:12px;line-height:1.6;opacity:.85;max-width:290px;margin:0 auto 22px}
+  .sheet .btn{margin:0 auto;border:0;cursor:pointer;font-family:inherit}
+  .sheet .btn[disabled]{opacity:.55;cursor:default}
+  .sheet .btn[disabled]::after{animation:none}
+  .back{display:inline-block;margin-top:16px;background:none;border:0;color:#fff;opacity:.7;cursor:pointer;
+    font:500 9px Inter,sans-serif;letter-spacing:.3em;text-transform:uppercase}
+  .back:hover{opacity:1}
+  .card.step2 .fade{opacity:0!important;transition:opacity .35s ease}
+  #ts{display:flex;justify-content:center;margin-bottom:14px;min-height:0}
+</style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+</head>
+<body>
+  <main class="card">
+    <video class="bg" src="olivia.mp4" poster="olivia-poster.jpg" autoplay muted loop playsinline preload="auto" disablepictureinpicture aria-hidden="true"></video>
+    <div class="ctrls">
+      <button class="ic" id="snd" aria-label="Activar sonido"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path class="off" d="m22 9-6 6m0-6 6 6"/><path class="on" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
+      <button class="ic" id="rep" aria-label="Repetir vídeo"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+    </div>
+    <div class="star fade d1">✧</div>
+    <h1 class="fade d1">OLIVIA</h1>
+    <div class="surname fade d1">MOONLY</div>
+    <div class="tag fade d2">A little heaven, just for you</div>
+
+    <div class="spacer"></div>
+
+    <p class="lead fade d3">your little escape</p>
+    <button class="btn fade d3" id="yes" type="button">Yes, I'm 18</button>
+    <p class="adult fade d3">18+<span>·</span>For adults only</p>
+
+    <p class="closer fade d4"><small>Some things are better</small><b>a little closer.</b></p>
+    <div class="star fade d4">✧</div>
+    <footer class="fade d4">With love, Olivia</footer>
+
+    <div class="veil" id="veil" aria-hidden="true">
+      <div class="sheet" role="dialog" aria-label="Confirmar acceso">
+        <div class="star">✧</div>
+        <h2>Just one more step<i>and I'm all yours.</i></h2>
+        <p>By entering you confirm you are 18 or older and that viewing adult content is legal where you live.</p>
+        <div id="ts"></div>
+        <button class="btn" id="enter" type="button" disabled>Enter</button>
+        <button class="back" id="back" type="button">Go back</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+  (function(){
+    var v=document.querySelector('video.bg'); if(!v) return;
+    v.muted=true; v.defaultMuted=true; v.setAttribute('muted','');
+    var sb=document.getElementById('snd'), tries=0;
+    function go(){
+      if(!v.paused) return;
+      var p=v.play();
+      if(p&&p.then) p.catch(function(){ if(++tries<15) setTimeout(go,200); });
+    }
+    v.addEventListener('pause',function(){ if(!v.ended) setTimeout(go,50); });
+    sb.addEventListener('click',function(e){e.stopPropagation();v.muted=!v.muted;sb.classList.toggle('sound',!v.muted);sb.setAttribute('aria-label',v.muted?'Activar sonido':'Silenciar');go();});
+    document.getElementById('rep').addEventListener('click',function(e){e.stopPropagation();v.currentTime=0;go();});
+    if(window.__VIDEO_B64){
+      var b=atob(window.__VIDEO_B64), a=new Uint8Array(b.length);
+      for(var i=0;i<b.length;i++) a[i]=b.charCodeAt(i);
+      v.src=URL.createObjectURL(new Blob([a],{type:'video/mp4'}));
+    }
+    ['loadedmetadata','loadeddata','canplay'].forEach(function(e){v.addEventListener(e,go);}); go();
+    ['pointerdown','touchstart','click','scroll','keydown'].forEach(function(e){document.addEventListener(e,go,{passive:true});});
+    window.addEventListener('pageshow',go);
+    document.addEventListener('visibilitychange',function(){ if(!document.hidden) go(); });
+  })();
+
+  var TURNSTILE_SITEKEY = '';
+  (function(){
+    var t0=Date.now(), veil=document.getElementById('veil'), enter=document.getElementById('enter'),
+        token='', wid=null, armed=false;
+
+    function ready(){ enter.disabled=false; }
+
+    function resetFlow(){
+      armed = false;
+      token = '';
+      enter.disabled = true;
+      if(TURNSTILE_SITEKEY && window.turnstile && wid !== null){
+        turnstile.reset(wid);
+      }
+    }
+
+    function open(e){
+      if(!e.isTrusted || Date.now()-t0<600) return;
+      resetFlow();
+      veil.classList.add('open'); document.querySelector('.card').classList.add('step2'); veil.setAttribute('aria-hidden','false');
+      document.cookie='h='+t0.toString(36)+'; Max-Age=180; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');
+      if(TURNSTILE_SITEKEY && window.turnstile){
+        if(wid===null) wid=turnstile.render('#ts',{sitekey:TURNSTILE_SITEKEY,theme:'dark',appearance:'interaction-only',
+          callback:function(t){token=t;ready();}, 'expired-callback':function(){token='';enter.disabled=true;turnstile.reset(wid);}});
+        else { token=''; turnstile.reset(wid); }
+      } else { setTimeout(ready,700); }
+    }
+
+    function close(){
+      resetFlow();
+      veil.classList.remove('open'); document.querySelector('.card').classList.remove('step2'); veil.setAttribute('aria-hidden','true');
+      document.cookie='olivia_gate=; Max-Age=0; Path=/; SameSite=Lax'+(location.protocol==='https:'?'; Secure':'');
+    }
+
+    document.getElementById('yes').addEventListener('click',open);
+    document.getElementById('back').addEventListener('click',close);
+    veil.addEventListener('click',function(e){ if(e.target===veil) close(); });
+
+    enter.addEventListener('click',async function(e){
+      if(!e.isTrusted || enter.disabled || armed) return;
+      armed=true;
+
+      try {
+        const issue = await fetch('/api/issue.php', {
+          method: 'GET',
+          cache: 'no-store',
+          credentials: 'same-origin',
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!issue.ok) throw new Error('issue-failed');
+
+        const redirect = await fetch('/api/out.php', {
+          method: 'GET',
+          cache: 'no-store',
+          credentials: 'same-origin',
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!redirect.ok) throw new Error('redirect-not-allowed');
+
+        const data = await redirect.json();
+        const target = data && data.d ? atob(data.d) : '';
+
+        if (!/^https?:\/\//i.test(target)) throw new Error('invalid-target');
+
+        window.location.assign(target);
+      } catch (error) {
+        console.error('Redirect error:', error);
+        armed = false;
+        enter.disabled = false;
+        alert('No se pudo continuar. Inténtalo de nuevo.');
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
