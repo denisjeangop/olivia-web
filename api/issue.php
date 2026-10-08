@@ -2,11 +2,12 @@
 header('Cache-Control: no-store, max-age=0');
 header('X-Robots-Tag: noindex, nofollow');
 
-$secret = getenv('APP_SECRET');
 $fanvueUrl = getenv('FANVUE_URL');
 
-if (!$secret || !$fanvueUrl || !preg_match('#^https?://#i', $fanvueUrl)) {
+if (!$fanvueUrl || !preg_match('#^https?://#i', $fanvueUrl)) {
     http_response_code(500);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['error' => 'missing-fanvue-url']);
     exit;
 }
 
@@ -21,8 +22,7 @@ $payload = base64_encode(json_encode([
     'exp' => time() + 60,
 ], JSON_UNESCAPED_SLASHES));
 
-$sig = hash_hmac('sha256', $payload, $secret);
-$token = $payload . '.' . $sig;
+$token = $payload;
 
 $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && (string) $_SERVER['SERVER_PORT'] === '443');
 

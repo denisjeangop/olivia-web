@@ -219,7 +219,12 @@
           headers: { 'Accept': 'application/json' }
         });
 
-        if (!issue.ok) throw new Error('issue-failed');
+        if (!issue.ok) {
+          const text = await issue.text();
+          let err = 'issue-failed';
+          try { const j = JSON.parse(text); if (j && j.error) err = j.error; } catch (_) {}
+          throw new Error(err);
+        }
 
         const redirect = await fetch('/api/out.php', {
           method: 'GET',
@@ -228,7 +233,12 @@
           headers: { 'Accept': 'application/json' }
         });
 
-        if (!redirect.ok) throw new Error('redirect-not-allowed');
+        if (!redirect.ok) {
+          const text = await redirect.text();
+          let err = 'redirect-not-allowed';
+          try { const j = JSON.parse(text); if (j && j.error) err = j.error; } catch (_) {}
+          throw new Error(err);
+        }
 
         const data = await redirect.json();
         const target = data && data.d ? atob(data.d) : '';
@@ -240,7 +250,7 @@
         console.error('Redirect error:', error);
         armed = false;
         enter.disabled = false;
-        alert('No se pudo continuar. Inténtalo de nuevo.');
+        alert('No se pudo continuar. Inténtalo de nuevo.\n\nDetalle: ' + error.message);
       }
     });
   })();

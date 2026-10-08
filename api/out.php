@@ -2,12 +2,6 @@
 header('Cache-Control: no-store, max-age=0');
 header('X-Robots-Tag: noindex, nofollow');
 
-$secret = getenv('APP_SECRET');
-
-function sign_payload($payload, $secret) {
-    return hash_hmac('sha256', $payload, $secret);
-}
-
 function deny() {
     http_response_code(404);
     exit;
@@ -22,21 +16,12 @@ if ($site !== '' && $site !== 'same-origin') {
     deny();
 }
 
-if (!$secret) {
-    deny();
-}
-
 $token = $_COOKIE['olivia_gate'] ?? '';
 if ($token === '') {
     deny();
 }
 
-[$payload, $sig] = array_pad(explode('.', $token, 2), 2, null);
-if ($payload === null || $sig === null || !hash_equals(sign_payload($payload, $secret), $sig)) {
-    deny();
-}
-
-$data = json_decode(base64_decode($payload, true), true);
+$data = json_decode(base64_decode($token, true), true);
 if (!is_array($data) || !isset($data['url']) || !isset($data['exp'])) {
     deny();
 }
